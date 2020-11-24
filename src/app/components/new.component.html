@@ -1,0 +1,20 @@
+<div fxFill fxLayout="column">
+    <div class="mt-1"></div>
+    <div fxFlex="10" fxLayoutAlign="row">
+        <div fxFlex="5"></div>
+        <mat-card fxFlex="90" fxLayout="row">
+            <mat-card-subtitle class="m-0 vertical-center" fxFlex>Add your new todos.</mat-card-subtitle>
+            <div fxFlex="3"></div>
+            <button type="button" fxFlex="25" mat-raised-button color="warn" (click)="AddtoDB()">Update</button>
+            <div fxFlex="3"></div>
+            <button type="button" fxFlex="15" mat-raised-button color="primary" [routerLink]="['/']">Back</button>
+        </mat-card>
+    </div>
+    <div class="mt-1"></div>
+    <div fxflex="70" fxLayoutAlign="row">
+        <div fxFlex="6"></div>
+        <div fxFlex="88">
+            <app-taskform #taskform></app-taskform>
+        </div>
+    </div>
+</div>

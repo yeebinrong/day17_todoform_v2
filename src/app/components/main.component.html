@@ -1,0 +1,30 @@
+<div fxFill fxLayout="column">
+    <div class="mt-1"></div>
+    <div fxFlex="10" fxLayoutAlign="row">
+        <div fxFlex="5"></div>
+        <mat-card fxFlex="90" fxLayout="row" fxLayoutAlign="center stretch">
+            <mat-card-subtitle class="m-0 vertical-center" fxFlex="75">Add new todos here.</mat-card-subtitle>
+            <button type="button" fxFlex mat-raised-button color="warn" [routerLink]="['/new']">Create</button>   
+        </mat-card>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center">
+        <ng-container *ngIf="todos.length <= 0">
+            <mat-card class="mt-1 mb-1" fxFlex="90">
+                You don't have any todos!
+            </mat-card>
+        </ng-container>
+        <div *ngIf="todos.length > 0" fxFill fxLayout="column" fxFill fxLayoutAlign="center center">
+            <ng-container *ngFor="let item of todos">
+                <div fxFlex="15"></div>
+                <div fxLayout="row" fxFlex="70" fxLayoutAlign="center center">
+                    <button type="button" [routerLink]="['edit', item.id]" class="mt-1 mb-1" mat-raised-button fxLayout="row" fxLayoutAlign="center">
+                        <div fxFill>{{item.title}}</div>
+                    </button>
+                    <div fxFlex="20">
+                        <button class="ml-1" color="primary" (click)="deleteDB(item.id)" mat-mini-fab><mat-icon>cancel</mat-icon></button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
