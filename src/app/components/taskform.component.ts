@@ -18,7 +18,6 @@ export class TaskformComponent implements OnInit {
     this.todoForm = this.CreateTodo();
     this.taskFormArray = this.todoForm.get('tasks') as FormArray;
     this.titleCtrl = this.todoForm.get('title') as FormControl;
-    this.AddTask();
   }
 
   // Get & Set
@@ -33,15 +32,16 @@ export class TaskformComponent implements OnInit {
     return this.todoForm.value as TodoForm;
   }
   set todo(f:TodoForm) {
-    console.info("retrived form" ,f.tasks);
-
+    console.info("retrived form" ,f);
+    for (let i of f.tasks) {
+      this.AddTask();
+    }
     this.todoForm.patchValue({
       title: f.title,
       tasks: f.tasks
     })
     console.info("UPDATED ", this.todoForm.value)
-    this.taskFormArray = this.todoForm.get('tasks') as FormArray;
-    this.titleCtrl = this.todoForm.get('title') as FormControl;
+    
   }
 
   AddTask() {
@@ -55,6 +55,7 @@ export class TaskformComponent implements OnInit {
 
   private CreateTodo():FormGroup {
     return this.fb.group({
+      id: this.fb.control(''),
       title: this.fb.control('', [Validators.required]),
       tasks: this.fb.array([])
     })
