@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Task, TodoForm } from '../models';
 
 @Component({
   selector: 'app-taskform',
@@ -7,7 +8,6 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
   styleUrls: ['./taskform.component.css']
 })
 export class TaskformComponent implements OnInit {
-  @Input() editForm: FormGroup;
   minDate = new Date();
   todoForm: FormGroup;
   taskFormArray:FormArray;
@@ -15,8 +15,31 @@ export class TaskformComponent implements OnInit {
   constructor(private fb:FormBuilder) { }
 
   ngOnInit() {
-    console.log(this.editForm);
-    this.todoForm = this.editForm || this.CreateTodo();
+    this.todoForm = this.CreateTodo();
+    this.taskFormArray = this.todoForm.get('tasks') as FormArray;
+    this.titleCtrl = this.todoForm.get('title') as FormControl;
+    this.AddTask();
+  }
+
+  // Get & Set
+  @Input() 
+  get todo(): TodoForm {
+    const t: TodoForm = this.todoForm.value as TodoForm;
+    t.tasks = t.tasks.map(v => {
+      // @ts-ignore
+      v.priority = parseInt(v.priority);
+      return v;
+    })
+    return this.todoForm.value as TodoForm;
+  }
+  set todo(f:TodoForm) {
+    console.info("retrived form" ,f.tasks);
+
+    this.todoForm.patchValue({
+      title: f.title,
+      tasks: f.tasks
+    })
+    console.info("UPDATED ", this.todoForm.value)
     this.taskFormArray = this.todoForm.get('tasks') as FormArray;
     this.titleCtrl = this.todoForm.get('title') as FormControl;
   }

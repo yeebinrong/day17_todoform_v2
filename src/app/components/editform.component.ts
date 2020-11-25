@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TodoForm } from '../models';
 import { TodoDatabase } from '../todo.database';
+import { TaskformComponent } from './taskform.component';
 
 @Component({
   selector: 'app-editform',
@@ -10,6 +11,9 @@ import { TodoDatabase } from '../todo.database';
   styleUrls: ['./editform.component.css']
 })
 export class EditformComponent implements OnInit {
+  @ViewChild('taskform')
+  TodoRef: TaskformComponent;
+  
   id:string = '';
   editForm: TodoForm;
   constructor(private activatedRoute: ActivatedRoute, private todoDB: TodoDatabase) { }
@@ -19,7 +23,7 @@ export class EditformComponent implements OnInit {
     this.getForm(this.id)
       .then (results => {
         this.editForm = results;
-        console.info("results ", results);
+        this.TodoRef.todo = this.editForm;
       })
   }
 
