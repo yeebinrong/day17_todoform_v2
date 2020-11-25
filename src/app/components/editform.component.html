@@ -5,7 +5,7 @@
         <mat-card fxFlex="90" fxLayout="row">
             <mat-card-subtitle class="m-0 vertical-center" fxFlex>Edit your todos.</mat-card-subtitle>
             <div fxFlex="3"></div>
-            <button type="button" fxFlex="25" mat-raised-button color="warn" [routerLink]="['/']">Update</button>
+            <button type="button" fxFlex="25" mat-raised-button color="warn" (click)="AddtoDB()">Update</button>
             <div fxFlex="3"></div>
             <button type="button" fxFlex="25" mat-raised-button color="primary" [routerLink]="['/']">Cancel</button>
         </mat-card>
